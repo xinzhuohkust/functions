@@ -3,11 +3,20 @@ pacman::p_load(tidyverse, tidyfst, httr2, httr, jsonlite, furrr, listviewer, rve
 
 mypath <- \(x = "") sprintf("%s/%s", getwd(), x)
 
-board <- board_folder(mypath("data"))
+methods_overwrite()
 
-pin_write <- \(x, name, type = "parquet", ...) {
+pin_write <- \(x, name, type = "parquet", target = "process", ...) {
+    
+    if(target == "process") {
+        board_path <- board_folder(mypath("data/process"))
+    } else {
+        if(target == "raw") {
+            board_path <- board_folder(mypath("data/raw"))
+        }
+    }
+
     pins::pin_write(
-        board,
+        board_path,
         x = x,
         name = name,
         ...,
@@ -15,9 +24,18 @@ pin_write <- \(x, name, type = "parquet", ...) {
     )
 }
 
-pin_read <- \(name, ...) {
+pin_read <- \(name, target = "process", ...) {
+
+    if (target == "process") {
+        board_path <- board_folder(mypath("data/process"))
+    } else {
+        if (target == "raw") {
+            board_path <- board_folder(mypath("data/raw"))
+        }
+    }
+    
     pins::pin_read(
-        board,
+        board_path,
         name = name,
         ...
     )
