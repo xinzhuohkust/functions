@@ -48,6 +48,7 @@ GET_proxy <- \(url, ...) { # GET function that use proxy by default.
         ...
     )
 }
+
 show_table <- \(data, ...) {
     DT::datatable(
         data,
