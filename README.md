@@ -1,6 +1,8 @@
 ```
 pacman::p_load(tidyverse, tidyfst, httr2, httr, jsonlite, furrr, listviewer, rvest, crayon, emojifont, devtools, arrow, reticulate, pins, yyjsonr, duckplyr, V8, fs)
 
+jsengine <- v8()
+
 mypath <- \(x = "") sprintf("%s/%s", getwd(), x)
 
 methods_overwrite()
