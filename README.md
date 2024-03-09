@@ -69,6 +69,17 @@ GET_proxy <- \(url, ...) { # GET function that use proxy by default.
     )
 }
 
+random_useragents <- \() {
+    "https://raw.githubusercontent.com/fake-useragent/fake-useragent/master/src/fake_useragent/data/browsers.json" %>%
+        read_html() %>%
+        html_text() %>%
+        str_extract_all("\\{.+?\\}") %>%
+        pluck(1) %>%
+        map_dfr(~ fromJSON(.) |> as_tibble_row()) %>%
+        sample_n(size = 1) %>%
+        pull(useragent)
+}
+
 show_table <- \(data, ...) {
     DT::datatable(
         data,
