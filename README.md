@@ -69,15 +69,19 @@ GET_proxy <- \(url, ...) { # GET function that use proxy by default.
     )
 }
 
+random_useragents_raw <- "https://raw.githubusercontent.com/fake-useragent/fake-useragent/master/src/fake_useragent/data/browsers.json" %>%
+    read_html() %>%
+    html_text() %>%
+    str_extract_all("\\{.+?\\}") %>%
+    pluck(1) %>%
+    map_dfr(~ fromJSON(.) |> as_tibble_row())
+
+pin_write(random_useragents_raw, "user-agents", target = "raw")
+
 random_useragents <- \() {
-    "https://raw.githubusercontent.com/fake-useragent/fake-useragent/master/src/fake_useragent/data/browsers.json" %>%
-        read_html() %>%
-        html_text() %>%
-        str_extract_all("\\{.+?\\}") %>%
-        pluck(1) %>%
-        map_dfr(~ fromJSON(.) |> as_tibble_row()) %>%
-        sample_n(size = 1) %>%
-        pull(useragent)
+    pin_read("user-agents", target = "raw") %>% 
+        sample_n(1) %>% 
+        pull("useragent")
 }
 
 show_table <- \(data, ...) {
