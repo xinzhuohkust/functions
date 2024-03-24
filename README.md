@@ -144,9 +144,9 @@ alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
 
     get_emoji <- \(x) {
         if(is.na(emojifont::emoji(x))) {
-            ""
+            return("😄")
         } else {
-            "😄"
+            emojifont::emoji(x)
         }
     }
 
@@ -163,5 +163,4 @@ alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
         )
     )
 }
-
 ```
