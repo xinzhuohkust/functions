@@ -142,7 +142,7 @@ alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
     
     get_color <- get(color, mode = "function", inherits = TRUE)
 
-    emoji <- \(x) {
+    get_emoji <- \(x) {
         if(is.na(emojifont::emoji(x))) {
             ""
         } else {
@@ -153,7 +153,7 @@ alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
     cat(
         sprintf(
             "%s %s %s\n",
-            emoji(emoji),
+            get_emoji(emoji),
             bold(
                 get_color(sprintf("%s", message))
             ),
@@ -163,4 +163,5 @@ alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
         )
     )
 }
+
 ```
