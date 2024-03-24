@@ -138,13 +138,24 @@ robust <- \(f) {
     )
 }
 
-alert <- \(message = "Headers updated!") {
+alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
+    
+    get_color <- get(color, mode = "function", inherits = TRUE)
+
+    emoji <- \(x) {
+        if(is.na(emojifont::emoji(x))) {
+            ""
+        } else {
+            "😄"
+        }
+    }
+
     cat(
         sprintf(
             "%s %s %s\n",
-            "🚀",
+            emoji(emoji),
             bold(
-                red(sprintf("%s", message))
+                get_color(sprintf("%s", message))
             ),
             bold(
                 green(str_extract(capture.output(now()), '(?<=").+?(?=")'))
