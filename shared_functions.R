@@ -166,3 +166,12 @@ alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
         )
     )
 }
+
+# ==============================================================================
+
+dir_tree()
+
+green("All the functions have been loaded successfully!\n") %>%
+    bold() %>%
+    sprintf("%s %s", emoji(search_emoji("smile"))[2], .) %>%
+    cat()
