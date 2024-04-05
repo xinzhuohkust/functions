@@ -167,6 +167,15 @@ alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
     )
 }
 
+if (!reticulate::py_available()) {
+    reticulate::use_condaenv("pytorch_gpu")
+    reticulate::import_builtins()
+    reticulate::py_available()
+    alert("The Python environment with cuda has been imported into R!", "yellow", "snake")
+} else {
+    alert("The Python environment with cuda has been imported into R!", "yellow", "snake")
+}
+
 # ==============================================================================
 
 dir_tree()
