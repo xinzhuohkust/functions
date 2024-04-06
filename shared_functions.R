@@ -77,7 +77,7 @@ random_useragents_raw <- "https://raw.githubusercontent.com/fake-useragent/fake-
     map_dfr(~ fromJSON(.) |> as_tibble_row())
 
 random_useragents <- \() {
-    pin_read("user-agents", target = "raw") %>%
+    random_useragents_raw %>%
         sample_n(1) %>%
         pull("useragent")
 }
