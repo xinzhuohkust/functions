@@ -1,8 +1,8 @@
 if(!requireNamespace("pacman", quietly = TRUE)) {
     install.packages("pacman")
-    pacman::p_load(RcppSimdJson, tidyverse, tidyfst, httr2, httr, jsonlite, furrr, listviewer, rvest, crayon, emojifont, devtools, arrow, reticulate, pins, yyjsonr, duckplyr, V8, fs)
+    pacman::p_load(duckdb, RcppSimdJson, tidyverse, tidyfst, httr2, httr, jsonlite, furrr, listviewer, rvest, crayon, emojifont, devtools, arrow, reticulate, pins, yyjsonr, duckplyr, V8, fs)
 } else {
-    pacman::p_load(RcppSimdJson, tidyverse, tidyfst, httr2, httr, jsonlite, furrr, listviewer, rvest, crayon, emojifont, devtools, arrow, reticulate, pins, yyjsonr, duckplyr, V8, fs)
+    pacman::p_load(duckdb, RcppSimdJson, tidyverse, tidyfst, httr2, httr, jsonlite, furrr, listviewer, rvest, crayon, emojifont, devtools, arrow, reticulate, pins, yyjsonr, duckplyr, V8, fs)
 }
 
 jsengine <- v8()
