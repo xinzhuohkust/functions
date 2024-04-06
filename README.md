@@ -1,5 +1,11 @@
+Functions that shared across different projects.
 ```
-pacman::p_load(tidyverse, tidyfst, httr2, httr, jsonlite, furrr, listviewer, rvest, crayon, emojifont, devtools, arrow, reticulate, pins, yyjsonr, duckplyr, V8, fs)
+if(!requireNamespace("pacman", quietly = TRUE)) {
+    install.packages("pacman")
+    pacman::p_load(RcppSimdJson, tidyverse, tidyfst, httr2, httr, jsonlite, furrr, listviewer, rvest, crayon, emojifont, devtools, arrow, reticulate, pins, yyjsonr, duckplyr, V8, fs)
+} else {
+    pacman::p_load(RcppSimdJson, tidyverse, tidyfst, httr2, httr, jsonlite, furrr, listviewer, rvest, crayon, emojifont, devtools, arrow, reticulate, pins, yyjsonr, duckplyr, V8, fs)
+}
 
 jsengine <- v8()
 
@@ -7,13 +13,14 @@ mypath <- \(x = "") sprintf("%s/%s", getwd(), x)
 
 methods_overwrite()
 
-pin_write <- \(x, name, type = "parquet", target = "process", ...) {
-    
-    if(target == "process") {
-        board_path <- board_folder(mypath("data/process"))
+methods_restore()
+
+pin_write <- \(x, name, type = "parquet", target = "process", versioned = FALSE, ...) {
+    if (target == "process") {
+        board_path <- board_folder(mypath("data/process"), versioned = versioned)
     } else {
-        if(target == "raw") {
-            board_path <- board_folder(mypath("data/raw"))
+        if (target == "raw") {
+            board_path <- board_folder(mypath("data/raw"), versioned = versioned)
         }
     }
 
@@ -26,16 +33,15 @@ pin_write <- \(x, name, type = "parquet", target = "process", ...) {
     )
 }
 
-pin_read <- \(name, target = "process", ...) {
-
+pin_read <- \(name, target = "process", versioned = FALSE, ...) {
     if (target == "process") {
-        board_path <- board_folder(mypath("data/process"))
+        board_path <- board_folder(mypath("data/process"), versioned = versioned)
     } else {
         if (target == "raw") {
-            board_path <- board_folder(mypath("data/raw"))
+            board_path <- board_folder(mypath("data/raw"), versioned = versioned)
         }
     }
-    
+
     pins::pin_read(
         board_path,
         name = name,
@@ -48,9 +54,7 @@ POST_proxy <- \(url, ...) { # POST function that use proxy by default.
         url = url,
         use_proxy(
             url = "http://n890.kdltps.com",
-            port = 15818,
-            username = "t18683899043273",
-            password = "jxpiwy74"
+            port = 15818
         ),
         ...
     )
@@ -61,9 +65,7 @@ GET_proxy <- \(url, ...) { # GET function that use proxy by default.
         url = url,
         use_proxy(
             url = "http://n890.kdltps.com",
-            port = 15818,
-            username = "t18683899043273",
-            password = "jxpiwy74"
+            port = 15818
         ),
         ...
     )
@@ -76,11 +78,9 @@ random_useragents_raw <- "https://raw.githubusercontent.com/fake-useragent/fake-
     pluck(1) %>%
     map_dfr(~ fromJSON(.) |> as_tibble_row())
 
-pin_write(random_useragents_raw, "user-agents", target = "raw")
-
 random_useragents <- \() {
-    pin_read("user-agents", target = "raw") %>% 
-        sample_n(1) %>% 
+    pin_read("user-agents", target = "raw") %>%
+        sample_n(1) %>%
         pull("useragent")
 }
 
@@ -127,11 +127,17 @@ rate <- rate_backoff(
     jitter = TRUE
 )
 
-robust <- \(f) {
+robust <- \(f, max_times = 5) {
     possibly(
         insistently(
             f,
-            rate = rate
+            rate = rate_backoff(
+                pause_base = 2,
+                pause_cap = 60,
+                pause_min = 1,
+                max_times = max_times,
+                jitter = TRUE
+            ),
         ),
         otherwise = "error!",
         quiet = FALSE
@@ -139,11 +145,10 @@ robust <- \(f) {
 }
 
 alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
-    
     get_color <- get(color, mode = "function", inherits = TRUE)
 
     get_emoji <- \(x) {
-        if(is.na(emojifont::emoji(x))) {
+        if (is.na(emojifont::emoji(x))) {
             return("😄")
         } else {
             emojifont::emoji(x)
@@ -163,4 +168,22 @@ alert <- \(message = "Headers updated!", color = "red", emoji = "rocket") {
         )
     )
 }
+
+if (!reticulate::py_available()) {
+    reticulate::use_condaenv("pytorch_gpu")
+    reticulate::import_builtins()
+    reticulate::py_available()
+    alert("The Python environment with cuda has been imported into R!", "yellow", "snake")
+} else {
+    alert("The Python environment with cuda has been imported into R!", "yellow", "snake")
+}
+
+# ==============================================================================
+
+dir_tree()
+
+green("All the functions have been loaded successfully!\n") %>%
+    bold() %>%
+    sprintf("%s %s", emoji(search_emoji("smile"))[2], .) %>%
+    cat()
 ```
