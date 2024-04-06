@@ -1,4 +1,4 @@
-Functions that shared across different projects.
+Functions that are utilized across different projects.
 ```
 if(!requireNamespace("pacman", quietly = TRUE)) {
     install.packages("pacman")
