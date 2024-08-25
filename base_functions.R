@@ -8,3 +8,9 @@ safe_json <- \(x) {
         }
     )
 }
+
+progressbar <- list(
+    format = " {cli::pb_rate} {cli::pb_eta} {cli::pb_bar} {cli::pb_current}/{cli::pb_total}",
+    clear = FALSE, 
+    width = NULL
+)
