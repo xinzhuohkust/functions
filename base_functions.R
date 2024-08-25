@@ -1,4 +1,4 @@
-pacman::p_load(tidyverse, RcppSimdJson, pacman, rvest, jsonlite)
+pacman::p_load(tidyverse, RcppSimdJson, pacman, rvest, jsonlite, tictoc, tidyfst)
 
 safe_json <- \(x) {
     tryCatch(
