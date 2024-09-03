@@ -1,4 +1,13 @@
 [
-    {"id": 1, "keywords": "关键词1", "summary": "摘要1"},
-    {"id": 2, "keywords": "关键词2", "summary": "摘要2"}
+    { "id": 1, "title": "机器学习的进展", "author": "王伟", "source": "科学技术期刊", "year": "2023", "keywords": "机器学习, 人工智能", "institution": "清华大学", "summary": "本文综述了机器学习领域的最新进展和未来趋势。" },
+    { "id": 2, "title": "The Future of AI", "author": "John Smith", "source": "Tech Journal", "year": "2024", "keywords": "AI, Future", "institution": "MIT", "summary": "This paper explores the future developments in artificial intelligence." },
+    { "id": 3, "title": "数据科学简介", "author": "李娜", "source": "数据分析杂志", "year": "2022", "keywords": "数据科学, 大数据", "institution": "北京大学", "summary": "介绍了数据科学的基本概念和应用。" },
+    { "id": 4, "title": "Deep Learning Techniques", "author": "Alice Johnson", "source": "AI Review", "year": "2021", "keywords": "Deep Learning, Neural Networks", "institution": "Stanford University", "summary": "A comprehensive review of deep learning techniques and their applications." },
+    { "id": 5, "title": "自然语言处理的挑战", "author": "张强", "source": "语言技术期刊", "year": "2023", "keywords": "自然语言处理, 计算语言学", "institution": "复旦大学", "summary": "讨论了自然语言处理当前面临的主要挑战。" },
+    { "id": 6, "title": "Advancements in Robotics", "author": "Emily Davis", "source": "Robotics Today", "year": "2023", "keywords": "Robotics, Automation", "institution": "Carnegie Mellon University", "summary": "An analysis of recent advancements in robotics technology." },
+    { "id": 7, "title": "计算机视觉基础", "author": "刘洋", "source": "计算机科学杂志", "year": "2020", "keywords": "计算机视觉, 图像处理", "institution": "浙江大学", "summary": "介绍了计算机视觉的基本原理和典型应用。" },
+    { "id": 8, "title": "Quantum Computing Explained", "author": "Michael Brown", "source": "Physics Journal", "year": "2022", "keywords": "Quantum Computing, Physics", "institution": "Harvard University", "summary": "A beginner's guide to understanding quantum computing." },
+    { "id": 9, "title": "人工智能伦理", "author": "赵敏", "source": "社会科学研究", "year": "2024", "keywords": "人工智能, 伦理", "institution": "南京大学", "summary": "探讨了人工智能技术带来的伦理问题。" },
+    { "id": 10, "title": "Cybersecurity Trends", "author": "David Lee", "source": "Security Insights", "year": "2023", "keywords": "Cybersecurity, Information Security", "institution": "University of California", "summary": "An overview of current trends in cybersecurity." },
+    { "id": 11, "title": "大数据分析方法", "author": "陈红", "source": "信息技术期刊", "year": "2021", "keywords": "大数据, 数据分析", "institution": "上海交通大学", "summary": "介绍了大数据分析的主要方法和工具。" }
 ]
